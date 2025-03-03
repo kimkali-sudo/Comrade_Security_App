@@ -20,6 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -102,8 +104,12 @@ fun ComradeTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     value : String = "",
-    placeholder : String = ""
+    placeholder : String = "",
+    isPassword: Boolean = false,
+    showPassword: Boolean = false,
 ){
+
+    var passwordVisible by rememberSaveable { mutableStateOf(showPassword) }
     Row (
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
@@ -119,7 +125,11 @@ fun ComradeTextField(
                 .fillMaxWidth(),
             placeholder = {
                 Text(text = placeholder)
-            }
+            },
+            visualTransformation = when {
+                isPassword && !passwordVisible -> PasswordVisualTransformation()
+                else -> VisualTransformation.None
+            },
 
 
 
