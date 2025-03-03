@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +22,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -26,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.korryr.comradealert.ui.feutures.navigation.Route
+import dev.korryr.comradealert.ui.theme.orange28
 
 @Composable
 fun SignUpScreen(
@@ -110,6 +115,47 @@ fun ComradeTextField(
 ){
 
     var passwordVisible by rememberSaveable { mutableStateOf(showPassword) }
+
+    val textFieldColors = OutlinedTextFieldDefaults.colors(
+        // Border colors
+        focusedBorderColor = orange28,
+        unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
+        errorBorderColor = Color.Red.copy(alpha = 0.8f),
+
+        // Container colors
+        focusedContainerColor = Color.White,
+        unfocusedContainerColor = Color.White,
+        errorContainerColor = Color.Red.copy(alpha = 0.05f),
+
+        // Text colors
+        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+        unfocusedTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+        errorTextColor = Color.Red,
+
+        // Label colors
+        focusedLabelColor = orange28,
+        unfocusedLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+        errorLabelColor = Color.Red,
+
+        // Icon colors
+        focusedLeadingIconColor = orange28,
+        unfocusedLeadingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+        errorLeadingIconColor = Color.Red,
+
+        focusedTrailingIconColor = orange28,
+        unfocusedTrailingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+        errorTrailingIconColor = Color.Red,
+
+        // Cursor color
+        cursorColor = orange28,
+
+        // Selection colors
+        selectionColors = TextSelectionColors(
+            handleColor = orange28,
+            backgroundColor = orange28.copy(alpha = 0.2f)
+        )
+    )
+
     Row (
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
@@ -130,6 +176,8 @@ fun ComradeTextField(
                 isPassword && !passwordVisible -> PasswordVisualTransformation()
                 else -> VisualTransformation.None
             },
+            colors = textFieldColors,
+
 
 
 
